@@ -1,12 +1,17 @@
 package TrifAndreiVladStrucRazvanSSVV;
 
 import TrifAndreiVladStrucRazvanSSVV.domain.Student;
+import TrifAndreiVladStrucRazvanSSVV.domain.Tema;
 import TrifAndreiVladStrucRazvanSSVV.repository.*;
 import TrifAndreiVladStrucRazvanSSVV.service.Service;
 import TrifAndreiVladStrucRazvanSSVV.validation.NotaValidator;
 import TrifAndreiVladStrucRazvanSSVV.validation.StudentValidator;
 import TrifAndreiVladStrucRazvanSSVV.validation.TemaValidator;
+import TrifAndreiVladStrucRazvanSSVV.validation.ValidationException;
+import com.sun.xml.internal.ws.policy.AssertionSet;
+import org.junit.Assert;
 import org.junit.Test;
+
 
 import static org.junit.Assert.*;
 
@@ -58,5 +63,31 @@ public class StudentTest {
         assertNotNull(retrievedStudent);
         assertEquals(addedStudent.getNume(), retrievedStudent.getNume());
         assertEquals(addedStudent.getEmail(), retrievedStudent.getEmail());
+    }
+
+    @Test
+    public void testAddTemaThrowException(){
+        this.Setup();
+
+        Tema toBeAdded = new Tema("", "testDescription", 5, 4);
+
+
+        try{
+            this.service.addTema(toBeAdded);
+        } catch (ValidationException exception){
+            assertEquals(exception.getMessage(), "Numar tema invalid!");
+        }
+    }
+
+    @Test
+    public void testAddTemaAdditionSucceeded(){
+        this.Setup();
+
+        Tema toBeAdded = new Tema("100", "testDescription", 5, 4);
+        this.service.addTema(toBeAdded);
+
+        Tema retrieved = this.service.findTema("100");
+
+        assertEquals(retrieved.getDescriere(), toBeAdded.getDescriere());
     }
 }
