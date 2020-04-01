@@ -8,8 +8,6 @@ import TrifAndreiVladStrucRazvanSSVV.validation.NotaValidator;
 import TrifAndreiVladStrucRazvanSSVV.validation.StudentValidator;
 import TrifAndreiVladStrucRazvanSSVV.validation.TemaValidator;
 import TrifAndreiVladStrucRazvanSSVV.validation.ValidationException;
-import com.sun.xml.internal.ws.policy.AssertionSet;
-import org.junit.Assert;
 import org.junit.Test;
 
 
