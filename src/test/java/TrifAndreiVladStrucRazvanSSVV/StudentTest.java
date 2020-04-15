@@ -1,5 +1,6 @@
 package TrifAndreiVladStrucRazvanSSVV;
 
+import TrifAndreiVladStrucRazvanSSVV.domain.Nota;
 import TrifAndreiVladStrucRazvanSSVV.domain.Student;
 import TrifAndreiVladStrucRazvanSSVV.domain.Tema;
 import TrifAndreiVladStrucRazvanSSVV.repository.*;
@@ -10,6 +11,8 @@ import TrifAndreiVladStrucRazvanSSVV.validation.TemaValidator;
 import TrifAndreiVladStrucRazvanSSVV.validation.ValidationException;
 import org.junit.Test;
 
+
+import java.time.LocalDate;
 
 import static org.junit.Assert.*;
 
@@ -235,4 +238,59 @@ public class StudentTest {
         }
 
     }
+
+    // Integration
+    @Test
+    public void testAddStudentIntegration() {
+        this.Setup();
+        Student new_student = new Student("2133","Struc",937,"etc@yahoo.com");
+
+        service.addStudent(new_student);
+        assertEquals(service.findStudent("2133"),new_student);
+
+        service.deleteStudent("2133");
+    }
+
+    @Test
+    public void testAddAssignmentIntegration() {
+
+        this.Setup();
+        Tema new_tema = new Tema("1234","Test homework", 7, 5);
+
+        service.addTema(new_tema);
+        assertEquals(service.findTema("1234"),new_tema);
+
+        service.deleteTema("1234");
+    }
+
+    @Test
+    public void testAddNotaIntegration() {
+
+        this.Setup();
+        Nota new_nota = new Nota("123","4","1",10, LocalDate.now());
+
+        try {
+            service.addNota(new_nota,"nu e bine");
+            assert(false);
+        }
+        catch(Exception e){
+            assert(true);
+        }
+    }
+
+    @Test
+    public void testAllIntegration() {
+        this.Setup();
+        try {
+            testAddStudentIntegration();
+            testAddAssignmentIntegration();
+            testAddNotaIntegration();
+            assert(true);
+        }
+        catch(Exception e){
+            assert(false);
+        }
+    }
+
+
 }
