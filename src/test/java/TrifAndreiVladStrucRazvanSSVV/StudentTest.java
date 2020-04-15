@@ -43,6 +43,7 @@ public class StudentTest {
         this.service = new Service(studentXMLRepository, studentValidator, temaXMLRepository, temaValidator, notaXMLRepository, notaValidator);
     }
 
+    // Add Student
     @Test
     public void testFindStudent(){
         this.Setup();
@@ -66,6 +67,85 @@ public class StudentTest {
         assertEquals(addedStudent.getEmail(), retrievedStudent.getEmail());
     }
 
+    @Test
+    public void testAddStudentEmptyId() {
+        this.Setup();
+
+        Student new_student = new Student("","Struc",937,"etc@yahoo.com");
+
+
+        try{
+            service.addStudent(new_student);
+            assert(false);
+        }
+        catch(Exception e) {
+            assert(true);
+        }
+    }
+
+    @Test
+    public void testAddStudentNullId() {
+        this.Setup();
+
+        Student new_student = new Student(null,"Struc",937,"etc@yahoo.com");
+
+
+        try{
+            service.addStudent(new_student);
+            assert(false);
+        }
+        catch(Exception e) {
+            assert(true);
+        }
+    }
+
+    @Test
+    public void testAddStudentUnderZeroGroup() {
+        this.Setup();
+
+        Student new_student = new Student("2133","Struc",-4,"etc@yahoo.com");
+
+
+        try{
+            service.addStudent(new_student);
+            assert(false);
+        }
+        catch(Exception e) {
+            assert(true);
+        }
+    }
+
+    @Test
+    public void testAddStudentEmptyEmail() {
+        this.Setup();
+
+        Student new_student = new Student("2133","Struc",937,"");
+
+
+        try{
+            service.addStudent(new_student);
+            assert(false);
+        }
+        catch(Exception e) {
+            assert(true);
+        }
+    }
+
+    @Test
+    public void testAddStudentNullEmail() {
+        this.Setup();
+
+        Student new_student = new Student("2133","Struc",937,null);
+        try{
+            service.addStudent(new_student);
+            assert(false);
+        }
+        catch(Exception e) {
+            assert(true);
+        }
+    }
+
+    // Add Assignment
     @Test
     public void testAddTemaThrowException(){
         this.Setup();
