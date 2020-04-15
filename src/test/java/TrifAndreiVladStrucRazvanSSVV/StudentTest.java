@@ -88,4 +88,151 @@ public class StudentTest {
 
         assertEquals(retrieved.getDescriere(), toBeAdded.getDescriere());
     }
+
+    @Test
+    public void addAssignementFailDescription(){
+        this.Setup();
+        Tema new_tema = new Tema("1111","", 99, 98);
+
+        try{
+            service.addTema(new_tema);
+        }
+        catch(Exception e) {
+            assertEquals(e.getMessage(),"Descriere invalida!");
+        }
+
+    }
+    @Test
+    public void addAssignementFailDeadline(){
+        this.Setup();
+        Tema new_tema = new Tema("1111","Test", 0, 98);
+
+        try{
+            service.addTema(new_tema);
+        }
+        catch(Exception e) {
+            assertEquals(e.getMessage(),"Deadlineul trebuie sa fie intre 1-14.");
+        }
+
+    }
+    @Test
+    public void addAssignementFailDeadlineMinus(){
+        this.Setup();
+        Tema new_tema = new Tema("1111","Test", -100, 98);
+
+        try{
+            service.addTema(new_tema);
+        }
+        catch(Exception e) {
+            assertEquals(e.getMessage(),"Deadlineul trebuie sa fie intre 1-14.");
+        }
+
+    }
+    @Test
+    public void addAssignementFailDeadlinePlus(){
+        this.Setup();
+        Tema new_tema = new Tema("1111","Test", 16, 15);
+
+        try{
+            service.addTema(new_tema);
+        }
+        catch(Exception e) {
+            assertEquals(e.getMessage(),"Deadlineul trebuie sa fie intre 1-14.");
+        }
+
+    }
+    @Test
+    public void addAssignementFailPrimire(){
+        this.Setup();
+        Tema new_tema = new Tema("1111","Test", 10, 0);
+
+        try{
+            service.addTema(new_tema);
+        }
+        catch(Exception e) {
+            assertEquals(e.getMessage(),"Saptamana primirii trebuie sa fie intre 1-14.");
+        }
+
+    }
+    @Test
+    public void addAssignementFailPrimireMinus(){
+        this.Setup();
+        Tema new_tema = new Tema("1111","Test", 10, -100);
+
+        try{
+            service.addTema(new_tema);
+        }
+        catch(Exception e) {
+            assertEquals(e.getMessage(),"Saptamana primirii trebuie sa fie intre 1-14.");
+        }
+
+    }
+    @Test
+    public void addAssignementFailPrimirePlus(){
+        this.Setup();
+        Tema new_tema = new Tema("1111","Test", 10, 15);
+
+        try{
+            service.addTema(new_tema);
+        }
+        catch(Exception e) {
+            assertEquals(e.getMessage(),"Saptamana primirii trebuie sa fie intre 1-14.");
+        }
+
+    }
+    @Test
+    public void addAssignementFailDeadlinePrimireSwitch(){
+        this.Setup();
+        Tema new_tema = new Tema("1111","Test", 5, 8);
+
+        try{
+            service.addTema(new_tema);
+        }
+        catch(Exception e) {
+            assertEquals(e.getMessage(),"Primire < Deadline!");
+        }
+
+    }
+
+    @Test
+    public void addAssignmentIdString(){
+        this.Setup();
+        Tema new_tema = new Tema("aba","test", 10, 8);
+
+        try{
+            service.addTema(new_tema);
+        }
+        catch(Exception e) {
+            assertEquals(e.getMessage(),"Id trebuie sa fie numar!");
+        }
+
+    }
+
+    @Test
+    public void addAssignmentIdNegativ(){
+        this.Setup();
+        Tema new_tema = new Tema("-100","test", 10, 8);
+
+        try{
+            service.addTema(new_tema);
+        }
+        catch(Exception e) {
+            assertEquals(e.getMessage(),"Id trebuie sa fie pozitiv!");
+        }
+
+    }
+
+    @Test
+    public void addAssignmentIdStringNumar(){
+        this.Setup();
+        Tema new_tema = new Tema("10a","test", 10, 8);
+
+        try{
+            service.addTema(new_tema);
+        }
+        catch(Exception e) {
+            assertEquals(e.getMessage(),"Id trebuie sa fie numar!");
+        }
+
+    }
 }
